@@ -61,3 +61,14 @@ HAVING
     COUNT(*) = (SELECT MAX(COUNT(*)) FROM WORDS GROUP BY word);
 
 ```
+```
+SELECT
+    word,
+    ROUND((COUNT(*) / (SELECT COUNT(*) FROM WORDS)) * 100, 2) AS percentage
+FROM
+    WORDS
+GROUP BY
+    word
+ORDER BY
+    percentage DESC;
+```
