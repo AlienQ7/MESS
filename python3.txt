@@ -1,0 +1,527 @@
+​1. ASCII and UTF-8
+​Definition: Character encoding standards that map binary numbers to characters for computer storage and display.
+​ASCII: The original 7-bit standard. It represents only 128 characters, primarily for basic English.
+​UTF-8 (Python Default): The modern, universal standard. It is variable-length (1 to 4 bytes) and backward-compatible with ASCII, supporting billions of global characters.
+​Deep Note (The Error): Python 3 strings are Unicode/UTF-8 internally. Trying to encode a non-ASCII character (like é) using encode('ascii') will trigger a UnicodeEncodeError.
+​Example Code:
+​s = "résumé" 
+
+utf8_data = s.encode('utf-8')
+print(f"UTF-8 Bytes: {utf8_data}") 
+
+try:
+    s.encode('ascii')
+except UnicodeEncodeError as e:
+    print(f"ASCII Failure: {e.reason}")
+
+2. ord() and chr() Function
+​Definition: These are built-in Python functions that facilitate the conversion between a single character and its corresponding integer code point (Unicode/ASCII value).
+​ord() Function: Takes a single character string and returns the corresponding integer code point. This is useful for checking the numerical value of a character for comparisons or cryptographic tasks.
+​chr() Function: Takes an integer code point and returns the corresponding single character string. This allows you to generate characters when you only know their numerical value.
+​Example Code: Demonstrating the reciprocal relationship between the two functions.
+# 1. Using ord()
+char_a = 'A'
+char_a_code = ord(char_a)
+print(f"Code for '{char_a}': {char_a_code}")
+
+# 2. Using chr()
+char_from_code = chr(char_a_code + 32) # Adding 32 shifts from uppercase to lowercase in ASCII/Unicode
+print(f"Character from code: {char_from_code}")
+
+
+Output:
+Code for 'A': 65
+Character from code: a
+
+3. Escape Sequences
+ * Definition: Escape sequences are special combinations of a backslash (\) followed by a character (or number) used inside string literals to represent characters that are difficult or impossible to type directly (like newlines, tabs, or quotes).
+ * Common Sequences:
+   * \n: Newline (moves the cursor to the next line).
+   * \t: Tab (inserts horizontal spacing).
+   * \\: Backslash itself.
+   * \' or \": Single or double quote (used to include a quote inside a string delimited by the same quote).
+ * Raw Strings: If you prefix a string with r (e.g., r"C:\name\file"), it becomes a raw string. In a raw string, the backslash is treated as a literal character, and escape sequences (like \n or \t) are not processed. This is critical when dealing with Windows file paths or Regular Expressions.
+ * Example Code: Demonstrating the effect of \n, \t, and the use of a raw string.
+# 1. Standard Escape Sequences
+print("Line 1\n\tLine 2 with tab.")
+
+# 2. Raw String usage
+path = r"C:\new\folder\file.txt"
+print(path)
+
+Output:
+Line 1
+	Line 2 with tab.
+C:\new\folder\file.txt
+
+4. String
+ * Definition: A string is an immutable sequence of Unicode characters used to store text data. It is a fundamental data type in Python.
+ * Immutability: Once a string is created, its content cannot be changed in place. Any operation that appears to modify a string (like concatenation or replacement) actually creates a new string object in memory.
+ * Example Code: Demonstrating immutability and slicing.
+s = "Python"
+print(f"Original ID: {id(s)}")
+
+# Slicing (Deep Note: stop index 4 is exclusive)
+subset = s[1:4]
+print(f"Slice: {subset}")
+
+# Immutability in action: Concatenation creates a new object
+s = s + " World"
+print(f"New ID: {id(s)}")
+
+Output:
+Original ID: 2345678901234
+Slice: yth
+New ID: 2345678901234
+
+5. Docstrings
+ * Definition: A docstring is a string literal placed immediately after the function, class, or module definition. Its purpose is to clearly and formally document the code.
+ * Access: Unlike regular comments (which are ignored), docstrings are stored as the object's __doc__ attribute and can be accessed by the user using the built-in help() function or by documentation tools.
+ * Standard Format: While not mandatory, using a standard style (like NumPy or Google) allows tools to automatically generate professional documentation pages from your code.
+ * Example Code: Demonstrating the simplest form of a docstring and how Python stores it.
+def multiply(a, b):
+    """
+    Returns the product of two numbers (a * b).
+    """
+    return a * b
+
+print(multiply.__doc__)
+
+Output:
+Returns the product of two numbers (a * b).
+
+6. Regular Expressions (Regex)
+ * Definition: A sequence of characters forming a search pattern, used for complex matching and manipulation of strings. Python uses the built-in \mathbf{`re`} module.
+ * Key Functions: The main functions are re.search() (finds the first match), re.findall() (finds all matches in a list), and re.sub() (replaces matches).
+ * Advance Concept: Regex patterns often rely on the backslash (\) for special sequences (like \d for digit). You must prefix the pattern with r (e.g., r"\d+") to create a raw string, which prevents Python from misinterpreting these backslashes as string escape sequences.
+ * Example Code (Shorter): Finding all digits in a text string.
+import re
+
+text = "Price: $15.99"
+pattern = r"\d+" 
+
+all_digits = re.findall(pattern, text)
+print(all_digits)
+
+Output:
+['15', '99']
+
+7. Mutability
+ * Definition: Mutability refers to whether the internal state (data/content) of an object can be changed after it has been created.
+ * Mutable Types (Changeable): Objects like lists, dictionaries, and sets are mutable. You can add, remove, or modify elements in place without creating a new object in memory.
+ * Immutable Types (Unchangeable): Objects like strings, tuples, and numbers are immutable. Any operation that seems to change them (like concatenation) actually creates a brand new object in memory.
+ * Performance : Immutability is crucial for performance and safety. Immutable objects are generally faster to access. They are also thread-safe by nature, meaning multiple threads can read the same object without needing special locking, simplifying concurrent programming.
+
+8. id() Function
+ * Definition: The built-in \mathbf{`id()`} function returns the unique "identity" of an object. This identity is the object's memory address while it is alive.
+ * Uniqueness: The identity (the returned integer) is guaranteed to be unique and constant for that specific object during its lifetime. No two objects can have the same identity simultaneously.
+ * Example Code: Using id() to confirm that a string operation creates a new object in memory.
+x = 10
+y = x   # y points to the same object as x
+
+print(id(x), id(y))     # same IDs
+
+x = x + 5               # creates a NEW object for x
+
+print(id(x))            # different ID now
+print(id(y))            # y still has old ID
+
+
+9. Object vs Reference
+ * Definition: In Python, an Object is the actual piece of data stored in memory (e.g., the number 10 or the list [1, 2]). A Reference is the variable name (e.g., x or my_list) that points to the memory address of that object.
+ * Assignment (\mathbf{=}): The assignment operator (=) does not copy the object. It creates a new reference that points to the same existing object.
+ * Important  Note (Copying): To create a true, independent copy of an object, you must use methods like .copy() for shallow copies or the copy.deepcopy() function for deep copies. Otherwise, modifying the object through one reference will affect all other references pointing to it (especially critical for mutable types like lists).
+ * Identity Check: The built-in operator \mathbf{`is`} checks if two references point to the exact same object in memory (i.e., if id(ref1) == id(ref2)). The == operator checks if the objects have the same value.
+ * Example Code: Demonstrating two references pointing to the same mutable list object.
+list_a = [1, 2, 3]
+list_b = list_a 
+
+# Modifying list_b affects list_a because they are the same object
+list_b.append(4) 
+
+print(list_a)
+print(list_a is list_b)
+
+Output:
+[1, 2, 3, 4]
+True
+
+10. is vs \mathbf{==}
+ * Definition: These are two fundamental comparison operators in Python that test different properties of objects.
+ * \mathbf{==} Operator (Value Equality): Tests for value equality. It checks if the contents (the data) of the two objects are the same. This invokes the object's __eq__() method.
+ * is Operator (Identity Equality): Tests for identity equality. It checks if the two variables (references) point to the exact same object in memory (i.e., if id(object1) == id(object2)).
+ * Example Code: Demonstrating that two lists can have the same value but be different objects.
+
+a = [1, 2]
+b = [1, 2]
+c = a
+
+print(a == b)   # True  (same values)
+print(a is b)   # False (different objects)
+print(a is c)   # True  (same object)
+
+11. Interning (String Interning)
+ * Definition: Interning is a memory optimization technique used by the Python interpreter to save space and speed up string comparisons. It ensures that only one copy of any given immutable string or integer exists in memory.
+ * Manual Interning: The sys.intern() function can be used to manually force a string into the intern pool, guaranteeing that identical strings share the same object ID.
+ * Example Code: Demonstrating the difference in interning behavior between simple literals and runtime-concatenated strings.
+import sys
+
+s1 = "hello_world"
+s2 = "hello_world"
+s3 = "hello" + "_world"
+
+print(s1 is s2)   # True  (same literal)
+print(s1 is s3)   # False (runtime concat → new object)
+
+s4 = sys.intern(s3)
+print(s1 is s4)   # True  (forced interning)
+
+12. Datetime Module
+ * Definition: Python's built-in datetime module provides classes for working with dates and times in both simple and complex ways. It handles calendar dates, times of day, and combinations of both.
+ * Key Classes:
+   * date: Stores year, month, and day.
+   * time: Stores hour, minute, second, microsecond, and timezone info.
+   * datetime: Stores both date and time (the most commonly used).
+   * timedelta: Represents a duration—the difference between two date, time, or datetime instances.
+
+example:
+from datetime import datetime, timedelta
+
+now = datetime.now()
+later = now + timedelta(hours=2)
+
+print(now)
+print(later)
+
+Output example:
+
+2025-12-11 13:45:10
+2025-12-11 15:45:10
+
+19. Sort with key
+ * Definition: The key parameter is an optional, single-argument function (often a lambda function) passed to sorting methods like the built-in \mathbf{`sorted()`} function or the list's \mathbf{`.sort()`} method. It transforms each item before comparison.
+ * How it Works: The key function is applied to each item in the list before the comparison is made. The sorting logic uses the result of this function to determine the order, but the original items themselves are returned in the sorted list.
+ * Example Code: Sorting a list of tuples by the numeric value at the second index (index 1).
+data = [('Alice', 30), ('Bob', 10), ('Charlie', 20)]
+
+# Sorts by the second element of the tuple (30, 10, 20)
+sorted_data = sorted(data, key=lambda item: item[1])
+
+print(sorted_data)
+
+Output:
+[('Bob', 10), ('Charlie', 20), ('Alice', 30)]
+
+Module 4
+
+25. Class Definition
+ * Definition: A class is a blueprint or template for creating objects. It defines a set of attributes (data/variables) and methods (functions) that the created objects will possess.
+ * Syntax: Classes are defined using the \mathbf{`class`} keyword followed by the class name (conventionally capitalized, e.g., Car).
+ * CamelCase vs. Snake_Case: By convention, class names use CamelCase (e.g., MyClass), while functions, methods, and variables use snake_case (e.g., my_method). This is a key Python style guide (PEP 8) convention.
+ * pass Statement: The pass statement is a null operation. It is often used as a placeholder in a class or function definition when you need to define the structure but haven't written the implementation code yet.
+ * Example Code: A simple class defining a single attribute and a placeholder method.
+class Dog:
+    # Class attribute (shared by all objects)
+    species = "Canis familiaris"
+
+    def bark(self):
+        pass # Placeholder method
+
+d = Dog()
+print(d.species)
+
+Output:
+Canis familiaris
+
+26. self Parameter in Methods
+ * Definition: The self parameter is a mandatory, conventional first argument in any instance method definition within a class. It is a reference to the instance (object) itself.
+ * Purpose: Python automatically passes the object instance to the method via self. This allows the method to access and modify the object's instance attributes (data unique to that specific object).
+ * Instance Attributes: All attributes referenced via self. (e.g., self.name, self.age) are unique to the particular object being used.
+ * Example Code: Demonstrating how self is used to initialize and access instance attributes.
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def introduce(self):
+        print(f"My name is {self.name}.")
+
+s1 = Student("Babe", 22)
+s1.introduce()
+
+Output:
+My name is Babe.
+
+27. Constructor (The Core Concept)
+In Short:
+ * __new__ makes the house (the object).
+ * __init__ furnishes the house (sets the attributes).
+
+28. Attributes and Instantiation
+ * Definition (Instantiation): Instantiation is the process of creating a concrete, usable object (instance) from a class blueprint. You instantiate a class by calling it like a function (e.g., Car()).
+ * Definition (Attribute): An attribute is a characteristic or piece of data associated with a class or an instance. Python has two main types:
+   * Class Attributes: Shared by all instances of the class. Defined directly inside the class body, outside of any methods.
+   * Instance Attributes: Unique to each individual object. Defined and initialized within the __init__ method using the self parameter (e.g., self.name).
+ * Example Code: Demonstrating the two types of attributes and instantiation.
+class Vehicle:
+    wheels = 4 # Class Attribute (shared)
+
+    def __init__(self, color):
+        self.color = color # Instance Attribute (unique)
+
+v1 = Vehicle("Red")
+v2 = Vehicle("Blue")
+
+print(f"v1 color: {v1.color}")
+print(f"v2 wheels: {v2.wheels}")
+
+Output:
+v1 color: Red
+v2 wheels: 4
+
+29. Dot Notation (Short Summary)
+ * Definition: Dot notation (\mathbf{`obj.attribute`}) is the way Python accesses data or functions associated with an object.
+ * Mechanism: When you use the dot, Python looks up the name sequentially: first in the object itself (instance attributes), and then in the class (class attributes and methods).
+ * Deep Note: When you call a method like p1.write(), the dot notation secretly passes the object (\mathbf{p1}) as the first argument, which is received by the method's \mathbf{`self`} parameter.
+
+30. type() Function
+ * Definition: The built-in \mathbf{`type()`} function is used to determine the type or class of an object.
+ * Syntax (Two Forms):
+   * Single Argument: type(object) returns the type (class) of the object. This is the primary use.
+   * Three Arguments: type(name, bases, dict) dynamically creates a new class. This is an advanced technique used in metaprogramming.
+ * Type is a Class: In Python, everything is an object, including types themselves. The type() function itself returns a class object.
+ * Example Code (Primary Form):
+x = 10
+y = "Hello"
+z = [1, 2]
+
+print(type(x))
+print(type(y))
+
+Output:
+<class 'int'>
+<class 'str'>
+
+31.__str__ vs __repr__
+ * Definition: Both __str__ and __repr__ are special dunder methods used to define the string representation of a custom object. They are crucial for debugging and user output.
+ * \mathbf{`__str__`} (Informal/Readable): This method is intended to provide a human-readable, informal string representation. It is what is displayed when you use the built-in \mathbf{`print()`} function or \mathbf{`str()`} conversion.
+ * \mathbf{`__repr__`} (Formal/Ambiguous): This method is intended to provide a computer-readable, formal string representation. The goal is often an unambiguous string that, if pasted into a Python interpreter, would recreate the object (e.g., Class('arg1', 123)). It is used by the built-in \mathbf{`repr()`} function and is the fallback if \mathbf{`__str__`} is not defined.
+ * Example Code: Demonstrating how print() and direct access call different methods.
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"Point(x={self.x}, y={self.y})"
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+p = Point(5, 10)
+
+# 1. Print/str() calls __str__
+print(p)
+
+# 2. Console/repr() calls __repr__
+print(repr(p))
+
+Output:
+(5, 10)
+Point(x=5, y=10)
+
+32. Methods for Built-in Operators (Dunder Methods)
+ * Definition: These are special methods (like \mathbf{`__add__`}, \mathbf{`__sub__`}, \mathbf{`__lt__`}) used to define how standard built-in operators (like \mathbf{+}, \mathbf{-}, \mathbf{<}) behave when applied to your custom class objects. This process is called Operator Overloading.
+ * Purpose: Operator overloading allows your custom objects to interact with standard Python syntax in a natural and intuitive way, making the code more readable and consistent (e.g., adding two Vector objects using \mathbf{`+`} instead of a special vector1.add(vector2) method).
+ * Common Categories:
+   * Arithmetic: \mathbf{`__add__`} for \mathbf{+}, \mathbf{`__mul__`} for \mathbf{*}.
+   * Comparison: \mathbf{`__eq__`} for \mathbf{==}, \mathbf{`__lt__`} for \mathbf{<}.
+   * Unary: \mathbf{`__neg__`} for negation \mathbf{-}.
+ * Example Code: Overloading the addition (\mathbf{`+`}) operator using \mathbf{`__add__`} to combine two Vector objects.
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        # Defines behavior for self + other
+        new_x = self.x + other.x
+        new_y = self.y + other.y
+        return Vector(new_x, new_y)
+
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+
+v1 = Vector(2, 3)
+v2 = Vector(4, 1)
+
+# Uses the __add__ method
+v3 = v1 + v2
+print(v3)
+
+Output:
+Vector(6, 4)
+
+33. Static Attributes (Class Attributes)
+ * Definition: Static attributes, more commonly known as Class Attributes in Python, are attributes (variables) that are defined directly inside the class definition but outside of any methods (like __init__).
+ * Use Case: They are primarily used for values that are constant across all instances (e.g., PI, MAX_USERS) or for tracking state shared by all objects (e.g., a counter for the number of instances created).
+
+40. Abstract Base Class (ABC)
+ * Definition: An Abstract Base Class (ABC) is a class that cannot be instantiated (you cannot create an object from it). It exists solely to define an interface or a contract for its subclasses.
+ * Purpose: It forces subclasses to implement specific methods defined in the ABC. If a subclass inherits from an ABC but fails to implement all the required abstract methods, attempting to instantiate the subclass will result in a \mathbf{`TypeError`}.
+ * Mechanism: To create an ABC, you must import the \mathbf{`ABC`} class and the \mathbf{`abstractmethod`} decorator from the built-in \mathbf{`abc`} module.
+   * The base class must inherit from ABC.
+   * Methods that must be implemented by children must be decorated with @abstractmethod.
+ * Polymorphism: ABCs are fundamental for achieving Polymorphism. They ensure that all objects inheriting from the ABC are guaranteed to have a certain set of methods, allowing them to be used interchangeably by external code.
+ * Example Code: Demonstrating an ABC that requires a draw() method to be implemented.
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def draw(self):
+        pass
+
+class Circle(Shape):
+    def draw(self):
+        print("Drawing a Circle.")
+
+# This would raise a TypeError:
+# s = Shape() 
+
+c = Circle()
+c.draw()
+
+Output:
+Drawing a Circle.
+
+41. Syntax Errors vs. Runtime Exceptions
+ * Syntax Errors (Parsing Errors): These occur when the code violates the grammatical rules of the Python language. The interpreter cannot even understand the code.
+   * When it happens: Before the program starts execution.
+   * Example: Leaving out a colon after an if statement or misspelling a keyword.
+ * Runtime Exceptions (Logical Errors): These occur after the program has successfully started running, usually due to an impossible operation or bad input.
+   * When it happens: During execution.
+   * Example: ZeroDivisionError, NameError (if a variable is used before assignment), or TypeError.
+ * Deep Note: Syntax Errors prevent the program from starting, while Runtime Exceptions can be handled using try...except blocks to prevent a program crash.
+ * Example Code:
+<!-- end list -->
+# Syntax Error example (cannot be handled):
+# if True # Missing colon
+
+# Runtime Exception example (can be handled):
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+Output:
+Cannot divide by zero.
+
+42. Traceback
+ * Definition: A traceback is the report printed by the Python interpreter when a runtime exception occurs and is not handled. It shows the call stack—the sequence of function calls that led to the error.
+ * Purpose: It helps the programmer diagnose the error by showing the file name, line number, and the functions/methods that were active at the moment of the crash, pointing directly to the source of the problem.
+ * Deep Note (Reading the Traceback): You read a traceback from the bottom up. The last line gives the specific error type and message (e.g., ValueError: invalid literal for int()). The lines above it show the chain of execution (File "...", line x, in function_name).
+43. try, except, else, finally
+ * try: The code block where the program expects an exception might occur. If an exception happens, execution immediately moves to the except block.
+ * except: The code block that executes only if a specified exception occurs in the try block. It defines the error handling logic.
+ * else: The code block that executes only if the try block completes successfully (i.e., no exceptions occurred).
+ * finally: The code block that always executes, regardless of whether an exception occurred, was caught, or not caught. It is typically used for cleanup operations (like closing files or releasing resources).
+ * Example Code:
+try:
+    x = int("10")
+    print("Try finished.")
+except ValueError:
+    print("Invalid number format.")
+else:
+    print("No exception occurred.")
+finally:
+    print("Cleanup done.")
+
+Output:
+Try finished.
+No exception occurred.
+Cleanup done.
+
+44. Matching except Clause, except with Multiple Exceptions, finally with return
+ * Matching except: You can specify the exact exception type(s) you want to catch. If the raised exception does not match, it is not caught. Using a bare except: is generally discouraged as it catches all exceptions, including system exits.
+ * Multiple Exceptions: To catch several possible exceptions with the same handling logic, you can group them into a tuple: \mathbf{`except (TypeError, ValueError):`}.
+ * finally with return: If a try block or an except block contains a return statement, the finally block will still execute before the function returns the value. This ensures cleanup happens even when exiting early.
+ * Example Code (Multiple Exceptions & finally with return):
+def safe_op(a, b):
+    try:
+        if b == 0:
+            raise ZeroDivisionError 
+        return a / b
+    except (TypeError, ZeroDivisionError) as e:
+        print(f"Caught error: {type(e).__name__}")
+        return 0
+    finally:
+        print("Operation complete.")
+
+print(safe_op(10, 'x'))
+
+Output:
+Caught error: TypeError
+Operation complete.
+0
+
+45. raise
+ * Definition: The \mathbf{`raise`} statement is used to explicitly trigger (throw) an exception.
+ * Purpose: This is used when a function encounters an expected but unacceptable condition. For instance, a function expects a positive number and raises a ValueError if a negative number is supplied.
+ * Mechanism: It can be used with an exception class (e.g., raise ValueError()) or with an existing exception object (raise e). Using a bare raise inside an except block will re-raise the exception currently being handled.
+ * Example Code:
+def check_level(level):
+    if level < 0:
+        raise ValueError("Level cannot be negative.")
+
+try:
+    check_level(-1)
+except ValueError as e:
+    print(f"Raised Error: {e}")
+
+Output:
+Raised Error: Level cannot be negative.
+
+46. Built-in Exceptions, User-Defined Exception Classes, Exceptions with Arguments
+ * Built-in Exceptions: Python provides a rich hierarchy of standard exceptions (e.g., NameError, TypeError, IndexError) which are all derived from the BaseException class.
+ * User-Defined Exception Classes: You can create your own custom exception types by inheriting from a base exception (usually \mathbf{`Exception`}) to make your code's error handling more specific and descriptive.
+ * Exceptions with Arguments: Exceptions can be instantiated with arguments (e.g., ValueError("message")). These arguments are accessible via the exception object's args attribute and are typically used to pass a detailed error message.
+ * Example Code (User-Defined):
+class InsufficientFunds(Exception):
+    pass
+
+try:
+    raise InsufficientFunds("Balance too low.")
+except InsufficientFunds as e:
+    print(f"Custom Error: {e.args[0]}")
+
+Output:
+Custom Error: Balance too low.
+
+47. Command-Line Arguments, File Opening Modes, with Statement
+Command-Line Arguments
+ * Definition: Values passed to a program when it is executed from the terminal (e.g., python script.py arg1 arg2).
+ * Access: They are accessed via the \mathbf{`sys.argv`} list (which must be imported from the sys module). \mathbf{`sys.argv[0]`} is always the script name itself.
+File Opening Modes
+ * Definition: A required string passed to the \mathbf{`open()`} function to specify the intended operation on a file.
+ * Common Modes:
+   * \mathbf{'r'}: Read (default). File pointer is at the start. Raises FileNotFoundError if the file doesn't exist.
+   * \mathbf{'w'}: Write. Overwrites the file if it exists. Creates the file if it doesn't exist.
+   * \mathbf{'a'}: Append. Adds data to the end of the file. Creates the file if it doesn't exist.
+with Statement
+ * Definition: Used with context manager objects (like file objects) to ensure resources are properly managed.
+ * Purpose: It guarantees that a resource (like an open file) is automatically and reliably closed, even if errors occur within the block. This uses the \mathbf{`__enter__`} and \mathbf{`__exit__`} dunder methods internally.
+ * Example Code (with statement):
+filename = "temp.txt"
+
+with open(filename, 'w') as f:
+    f.write("Line 1\n")
+
+# File is guaranteed to be closed here
+with open(filename, 'r') as f:
+    content = f.read()
+
+print(content.strip())
+
+Output:
+Line 1
+
