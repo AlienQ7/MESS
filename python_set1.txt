@@ -1,0 +1,1049 @@
+MODULE 1 — 2 MARK
+
+Q1. What are identifiers in Python? Give two rules.
+Ans: Identifiers are names given to variables, functions, classes, etc.
+Rules:
+1. They cannot start with a digit.
+2. They can contain A-Z, a-z, 0-9, and underscore only.
+
+Q2. Define operator precedence with an example.
+Ans:Operator precedence determines the order in which operators are evaluated.
+Example:
+print(2 + 3 * 4)   # Output: 14 (because * has higher precedence)
+
+Q3. What is bit masking?
+Ans:Bit masking is the process of using bitwise operators with masks (specific bit patterns) to extract, set, or clear particular bits.
+
+Q4. Difference between == and is.
+Ans:'==' compares values where as
+'is' compares object identity (memory reference).
+
+MODULE 2 — 2 MARK
+
+Q1. What is the purpose of the pass statement?
+Ans:It acts as a placeholder for an empty block; it does nothing but avoids syntax errors.
+
+Q2. Define recursion with a simple example.
+Ans:Recursion is when a function calls itself.
+Example:
+
+def fact(n):
+    return 1 if n==0 else n * fact(n-1)
+
+print(fact(4))  # Output: 24
+
+Q3. Write the syntax of a lambda function.
+Ans:lambda arguments: expression
+
+Q4. What is the use of __name__ == "__main__"?
+It ensures the code inside the block runs only when the file is executed directly, not when imported.
+
+MODULE 3 — 2 MARK
+
+Q1. What does the ord() and chr() function do?
+Ans:ord() converts a character to its ASCII/Unicode integer.
+chr() converts an integer to its corresponding character.
+
+Q2. What is mutability? Give one mutable and one immutable type.
+Ans:Mutability: ability to change an object after creation.
+Mutable: list
+Immutable: tuple
+
+Q3. What is negative indexing?
+Ans:Accessing elements from the end of a sequence using negative indices. Example: -1 refers to the last element.
+
+Q4. What is a dictionary? Give one example.
+Ans:A dictionary stores key–value pairs.
+Example:
+
+d = {"name": "Avi", "age": 21}
+
+MODULE 4 — 2 MARK
+
+Q1. What is the self parameter?
+Ans:It represents the instance of the class and is used to access instance attributes and methods.
+
+Q2. Difference between str and repr.
+Ans:__str__: User-friendly string representation.
+
+Q3. What is inheritance?
+Ans:It is the mechanism where one class (child) acquires attributes and methods of another class (parent).
+
+Q4. What is name-mangling? (with __var)
+Ans:Python internally changes names starting with __var to _ClassName__var to avoid accidental access.
+
+MODULE 5 — 2 MARK
+
+Q1. What is a traceback?
+Ans:A traceback is the detailed error report shown when an exception occurs, displaying the call stack.
+
+Q2. Difference between syntax error and runtime error.
+Ans:Syntax error: problem in code structure; detected before execution.
+Runtime error: occurs during execution (e.g., division by zero).
+
+Q3. What is the use of finally block?
+Ans:The finally block runs always, whether an exception occurs or not—typically for cleanup tasks.
+
+Q4. What is an exception class?
+Ans:A user-defined or built-in class derived from Exception that represents an error type.
+Below are clean, concise 5-mark notes with examples, short code, and simple ASCII flowcharts/diagrams where needed. No unnecessary commentary.
+
+MODULE 1 — 5 MARK
+
+Q1. Explain operator precedence and associativity with examples.
+Ans:Operator precedence decides which operator is evaluated first.
+Associativity decides direction of evaluation when operators have the same precedence.
+
+Common precedence (high → low):
+1. Parentheses ()
+2. Exponent **
+3. Unary +x, -x, ~x
+4. Multiplicative *, /, //, %
+5. Additive +, -
+6. Relational <, >, <=, >=
+7. Equality ==, !=
+8. Logical and, or
+
+Associativity examples:
+
+** is right-associative
+
+print(2 ** 3 ** 2)  # 2 ** (3 ** 2) = 512
+
+*, + are left-associative
+
+print(10 - 3 - 2)  # (10 - 3) - 2 = 5
+
+Q2. Describe bitwise operators (&, |, ^, ~, <<, >>) with examples.
+Ans:Let a = 10 (1010) and b = 6 (0110):
+
+Operator	Meaning	Example
+
+&	AND	a & b → 1010 & 0110 = 0010 (2)
+`	`	OR
+^	XOR	a ^ b → 1100 (12)
+~	NOT	~a = -(a+1) → ~10 = -11
+<<	Left shift	a << 1 → 10100 (20)
+>>	Right shift	a >> 1 → 101 (5)
+
+Q3. Explain short-circuit evaluation with a diagram.
+Ans:Short-circuit means Python stops evaluating as soon as the final result is known.
+
+For and:
+
+A and B
+↓
+If A is False → stop; return False
+If A is True → evaluate B
+
+For or:
+
+A or B
+↓
+If A is True → stop; return True
+If A is False → evaluate B
+
+Example:
+
+x = 0
+print(x != 0 and 10/x)   # x!=0 is False → second part not evaluated
+
+MODULE 2 — 5 MARK
+
+Q1. Explain if-elif-else with flowchart + example.
+Ans:Flowchart:
+
+condition1?
+        /      \
+     yes        no
+     ↓          ↓
+   block1   condition2?
+              /     \
+           yes       no
+           ↓         ↓
+        block2     else block
+
+Example:
+
+x = 75
+if x > 90:
+    print("A")
+elif x > 60:
+    print("B")
+else:
+    print("C")
+
+Q2. Explain the working of a for loop with range() examples.
+Ans:range() generates a sequence of numbers for iteration.
+
+Forms:
+range(stop)
+range(start, stop)
+range(start, stop, step)
+
+Examples:
+
+for i in range(5):
+    print(i)       # 0 1 2 3 4
+
+for i in range(2, 10, 2):
+    print(i)       # 2 4 6 8
+
+Q3. Write a program using recursion (factorial, sum of digits).
+Ans:Factorial:
+
+def fact(n):
+    return 1 if n==0 else n * fact(n-1)
+
+print(fact(5))  # 120
+
+Sum of digits:
+
+def sum_digits(n):
+    return 0 if n==0 else (n%10) + sum_digits(n//10)
+
+print(sum_digits(123))  # 6
+
+Q4. Explain global vs local variables with example.
+Ans:Local: inside a function, accessible only there.
+Global: declared outside, accessible everywhere.
+
+x = 10   # global
+
+def test():
+    global x
+    x = 20   # modifies global variable
+
+test()
+print(x)   # 20
+
+MODULE 3 — 5 MARK
+
+Q1. Explain slicing with different variations (start, stop, step, negative).
+Ans:Syntax:
+sequence[start : stop : step]
+
+Examples:
+
+s = "PYTHON"
+
+print(s[1:4])      # YTH  (start=1, stop=4)
+print(s[:3])       # PYT  (start default)
+print(s[3:])       # HON  (stop default)
+print(s[::2])      # PTO  (step=2)
+print(s[::-1])     # NOHTYP (negative step → reverse)
+print(s[-4:-1])    # THO  (negative indices)
+
+Q2. List methods of dictionary (keys, values, items, get).
+Ans: d = {"a": 1, "b": 2}
+
+print(d.keys())     # dict_keys(['a','b'])
+print(d.values())   # dict_values([1,2])
+print(d.items())    # dict_items([('a',1),('b',2)])
+print(d.get("a"))   # 1 (safe access)
+
+Q3. Explain mutable vs immutable objects with code demonstration.
+Ans:Mutable objects can be modified in place; immutable cannot.
+
+# mutable list
+a = [1,2,3]
+a[0] = 10
+print(a)  # [10,2,3]
+
+# immutable string
+s = "abc"
+# s[0] = 'x'  → Error
+s = "xyz"     # creates new object
+
+Q4. Explain string escape sequences with examples.
+Ans:Common escape sequences:
+
+\n → newline  
+\t → tab  
+\" → double quote  
+\\ → backslash  
+\r → carriage return
+
+Examples:
+
+print("Hello\nWorld")
+print("A\tB")
+print("She said \"Hi\"")
+
+MODULE 4 — 5 MARK
+
+Q1. Explain class and object creation with constructor example.
+Ans:class Student:
+    def __init__(self, name, marks):   # constructor
+        self.name = name
+        self.marks = marks
+
+s = Student("Avi", 95)
+print(s.name, s.marks)
+
+A class defines attributes; an object is an instance created using the class.
+
+Q2. Explain inheritance types with example (single, multilevel).
+Ans:Single inheritance:
+
+class A:
+    pass
+class B(A):
+    pass
+
+Multilevel inheritance:
+
+class A: pass
+class B(A): pass
+class C(B): pass
+
+Q3. Write a class with getter and setter methods.
+Ans:class Person:
+    def __init__(self, age):
+        self.__age = age
+
+    def get_age(self):
+        return self.__age
+
+    def set_age(self, a):
+        if a > 0:
+            self.__age = a
+
+p = Person(20)
+p.set_age(25)
+print(p.get_age())
+
+Q4. Explain method overriding with example.
+Ans:class A:
+    def show(self):
+        print("A show")
+
+class B(A):
+    def show(self):     # overridden
+        print("B show")
+
+b = B()
+b.show()   # B show
+
+MODULE 5 — 5 MARK
+
+Q1. Explain try-except-else-finally with code.
+Ans:try:
+    x = int("10")
+except ValueError:
+    print("Error")
+else:
+    print("No error")     # runs if no exception
+finally:
+    print("Always runs")  # executes regardless
+
+Q2. Explain user-defined exceptions with example.
+Ans:class AgeError(Exception):
+    pass
+
+age = -5
+if age < 0:
+    raise AgeError("Invalid age")
+
+Q3. Explain file handling modes (r, w, a, r+) with examples.
+Ans:
+Mode	Meaning	Example
+
+r	read only	open("a.txt","r")
+w	write (overwrites)	open("a.txt","w")
+a	append	open("a.txt","a")
+r+	read + write	open("a.txt","r+")
+
+Example:
+
+f = open("a.txt", "w")
+f.write("Hello")
+f.close()
+
+Q4. Short note: “Matching except clause” and “multiple except blocks”.
+Ans:Matching except clause:
+Python checks each except block in order and executes the first one that matches the raised exception type.
+
+Multiple except blocks:
+Used to handle different exception types separately.
+
+try:
+    x = 10/0
+except ZeroDivisionError:
+    print("Division error")
+except ValueError:
+    print("Value issue")
+
+Module 1 — 10-mark
+
+Q1. Operators in Python (arithmetic, relational, logical, bitwise) — with examples
+Ans:Arithmetic operators
+
+Operate on numeric operands.
+
+Operator	Meaning	Example
+
++	addition	5 + 3  # 8
+-	subtraction	5 - 3  # 2
+*	multiplication	4 * 2  # 8
+/	true division (float)	5 / 2  # 2.5
+//	floor division (integer result toward −∞)	5 // 2  # 2
+%	modulus (remainder)	5 % 2  # 1
+**	exponentiation	2 ** 3  # 8
++ (unary)	unary plus	+x
+- (unary)	unary minus	-x
+
+# example
+a, b = 7, 3
+print(a + b, a - b, a * b, a / b, a // b, a % b, a ** b)
+# Output: 10 4 21 2.3333333333333335 2 1 343
+
+Relational (comparison) operators
+
+Return boolean results.
+
+==, !=, <, <=, >, >=
+
+x = 5
+print(x == 5, x != 3, x > 2, x <= 5)
+# Output: True True True True
+
+Logical operators
+
+Operate on boolean values; support short-circuit evaluation.
+
+and, or, not
+
+A and B: True only if both True. If A is False, B not evaluated.
+
+A or B: True if at least one True. If A is True, B not evaluated.
+
+not A: Logical negation.
+
+
+print(True and False, True or False, not True)
+# Output: False True False
+
+Bitwise operators
+
+Operate on integers at the bit level:
+
+& — bitwise AND
+
+| — bitwise OR
+
+^ — bitwise XOR (exclusive OR)
+
+~ — bitwise NOT (ones' complement)
+
+<< — left shift
+
+>> — right shift
+
+
+Example:
+
+a, b = 10, 6   # a: 1010, b: 0110 (in binary)
+print(a & b)   # 2   -> 0010
+print(a | b)   # 14  -> 1110
+print(a ^ b)   # 12  -> 1100
+print(~a)      # -11 (two's complement behaviour: ~x == -(x+1))
+print(a << 1)  # 20  -> 10100
+print(a >> 1)  # 5   -> 0101
+
+Q2. Binary number system and bitwise operations — detailed
+Ans:Binary system
+
+Base-2 representation: digits 0 and 1.
+
+Value for bits b_n ... b2 b1 b0 = Σ (b_i × 2^i).
+
+Example: binary 1101 = 1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = 13.
+
+Conversion quick examples
+
+Decimal → binary: repeatedly divide by 2, record remainders (LSB → MSB).
+
+Binary → decimal: sum powers of two for positions with 1.
+
+
+Bitwise operations intuition and examples
+
+Take a = 13 (1101₂) and b = 6 (0110₂):
+
+AND &: result bit is 1 only if both bits are 1.
+1101 & 0110 = 0100 (4).
+
+OR |: result bit is 1 if at least one bit is 1.
+1101 | 0110 = 1111 (15).
+
+XOR ^: result bit is 1 if bits differ.
+1101 ^ 0110 = 1011 (11).
+
+NOT ~: flips every bit. In Python integers are signed; ~x equals -(x+1) because of infinite-precision two's-complement model.
+~13 = -14.
+
+Left shift <<: shift bits left, fill with zeros on right; equivalent to multiply by 2^n for non-negative integers.
+13 << 1 = 11010₂ = 26.
+
+Right shift >>: shift bits right; floor division by 2^n for non-negative integers (signed uses sign-extension for negatives).
+13 >> 1 = 1101 >> 1 = 110₂ = 6.
+
+
+Use-cases of bitwise ops
+
+Masks and flags (extract/set/clear bits)
+
+Low-level optimizations, networking (IP masks), embedded programming, cryptography primitives.
+
+
+Mask example — extract third bit (2^2) of x:
+
+x = 13              # 1101₂
+mask = 1 << 2       # 0100₂ (4)
+bit_is_set = (x & mask) != 0
+print(bit_is_set)   # True (third bit is 1)
+
+Visual: bitwise AND
+
+1101   (13)
+ & 0110   (6)
+ -------
+   0100   (4)
+
+Module 2 — 10-mark
+
+Q1. Loop constructs with flowcharts and examples
+Ans:while loop
+
+Flowchart:
+
+[Start]
+       |
+   [Condition?] ----No----> [Exit]
+       |
+      Yes
+       |
+    [Body]
+       |
+   [Back to Condition]
+
+Example:
+
+i = 0
+while i < 5:
+    print(i)
+    i += 1
+# Output: 0 1 2 3 4
+
+for loop (iterable-based and range)
+
+Flowchart:
+
+[Start] -> [Get next item from iterable]
+         -> [If no item -> Exit]
+         -> [Body]
+         -> [Back to get next]
+
+Examples:
+
+# iterate list
+for x in [1,2,3]:
+    print(x)
+
+# range
+for i in range(1,6):
+    print(i)
+
+Nested loops
+
+Flowchart: two-level nesting indicated by inner loop inside outer loop's body.
+
+Example: multiplication table (2×3)
+
+for i in range(1,4):
+    for j in range(1,4):
+        print(i, "x", j, "=", i*j)
+
+Complexity comment: nested loops often lead to O(n × m) time for sizes n and m.
+
+Q2. Functions in Python — parameters, arguments, return, recursion, lambda, closure
+Ans:Function basics
+
+Syntax:
+
+def func_name(parameters):
+    """optional docstring"""
+    body
+    return value  # optional
+
+Parameters vs Arguments
+
+Parameters: names in function definition (def f(x, y): — x, y are parameters).
+
+Arguments: actual values supplied when calling (f(2, 3) — 2, 3 are arguments).
+
+Positional, keyword, default, varargs
+
+def f(a, b=10, *args, **kwargs):
+    pass
+
+b=10 default value
+
+*args collects extra positional args as tuple
+
+**kwargs collects keyword args as dict
+
+Return
+
+return exits the function and returns value. No return → returns None.
+
+
+Recursion
+
+A function calling itself; base case required to avoid infinite recursion.
+
+Factorial:
+
+def fact(n):
+    if n <= 1:
+        return 1
+    return n * fact(n-1)
+
+print(fact(5))  # 120
+
+Sum of digits:
+
+def sum_digits(n):
+    if n == 0:
+        return 0
+    return n % 10 + sum_digits(n // 10)
+
+Lambda (anonymous functions)
+
+Syntax: lambda args: expression. Single expression only.
+
+square = lambda x: x*x
+print(square(5))  # 25
+
+# used with map/filter
+print(list(map(lambda x: x*x, [1,2,3])))  # [1,4,9]
+
+Closure
+
+A nested function that captures variables from the enclosing scope.
+
+def make_multiplier(k):
+    def multiplier(x):
+        return x * k
+    return multiplier
+
+times3 = make_multiplier(3)
+print(times3(5))  # 15
+
+multiplier is a closure because it retains k.
+
+Module 3 — 10-mark
+
+Q1. Lists, tuples, sets, dictionaries — detailed operations + examples
+Ans:List
+
+Ordered, mutable, allows duplicates.
+
+Creation: lst = [1,2,3]
+
+Common ops: append, extend, insert, pop, remove, index, count, sort, reverse, slicing.
+
+
+lst = [3,1,2]
+lst.append(4)       # [3,1,2,4]
+lst.sort()          # [1,2,3,4]
+
+Tuple
+
+Ordered, immutable, allows duplicates.
+
+Creation: t = (1,2) or t = 1,2
+
+Use when immutability needed (keys in dicts, fixed records).
+
+
+t = (1, 2, 3)
+# t[0] = 5  -> TypeError
+
+Set
+
+Unordered, mutable, unique elements.
+
+Creation: s = {1,2,3} or set([1,2])
+
+Operations: add, remove, discard, pop, union |, intersection &, difference -, symmetric_difference ^.
+
+
+s = {1,2,3}
+s.add(4)
+print(s & {2,4})  # {2,4}
+
+Dictionary
+
+Key → value mapping, keys must be hashable.
+
+Creation: d = {'a':1, 'b':2}
+
+Operations: d[key], d.get(key, default), d.keys(), d.values(), d.items(), d.pop(key), d.update(other).
+
+
+d = {'x':10}
+print(d.get('y', 0))  # 0
+for k,v in d.items():
+    print(k,v)
+
+Complexities (typical)
+
+List indexing: O(1). Insert/remove at end: amortized O(1). Insert/remove at middle: O(n).
+
+Dict/set average: O(1) for lookup/insert/delete (hash-based).
+
+Q2. String handling, slicing, escape sequences, and regex
+Ans:Strings
+
+Immutable sequences of Unicode characters.
+
+Creation: s = "hello"
+
+Common methods: .upper(), .lower(), .strip(), .split(), .join(), .replace(), .format() / f-strings.
+
+s = "  Hello World  "
+print(s.strip(), s.upper(), s.split())
+# Output: 'Hello World' 'HELLO WORLD' ['','Hello','World','']
+
+Slicing (revisited)
+
+str[start:stop:step] — return substring. Negative indices count from end; negative step reverses.
+
+s = "PYTHON"
+print(s[1:4])    # YTH
+print(s[::-1])   # NOHTYP
+print(s[-3:])    # HON
+
+Escape sequences
+
+\n newline, \t tab, \\ backslash, \' and \" quotes, \r, \b, Unicode \uXXXX.
+
+
+print("Line1\nLine2")
+
+Regular expressions (regex) — re module
+
+Useful for pattern matching, search, replace.
+
+Basic functions: re.match, re.search, re.findall, re.sub, re.compile.
+
+Example — find all email-like tokens (simple pattern):
+
+import re
+text = "Contact: alice@example.com, bob@site.org"
+emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text)
+print(emails)  # ['alice@example.com', 'bob@site.org']
+
+Example — split by whitespace:
+
+re.split(r"\s+", "a  b\tc\n d")  # ['a','b','c','d']
+
+Note: regex is powerful; for complex validation use precise patterns and test edge cases.
+
+Module 4 — 10-mark
+
+Q1.OOP in Python: classes, attributes, methods, constructor, encapsulation, inheritance, polymorphism
+Ans:Class and object basics
+
+class Car:
+    wheels = 4               # class attribute
+    def __init__(self, model):
+        self.model = model   # instance attribute
+    def drive(self):
+        return f"{self.model} driving"
+
+c = Car("Honda")
+print(c.drive())  # Honda driving
+
+Constructor
+
+__init__(self, ...) invoked on instantiation to initialize instance state.
+
+Encapsulation
+
+Use naming conventions to indicate privacy:
+
+_name (protected by convention)
+
+__name triggers name mangling (private-like).
+
+Provide access via getters/setters or @property.
+
+class Person:
+    def __init__(self, age):
+        self.__age = age  # mangled to _Person__age
+    def get_age(self):
+        return self.__age
+    def set_age(self, a):
+        if a >= 0: self.__age = a
+
+Inheritance
+
+Single inheritance: class B(A)
+
+Multilevel: C inherits B inherits A
+
+Multiple inheritance: class C(A,B)
+
+Example:
+
+class Animal:
+    def speak(self):
+        return "sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "bark"   # overriding
+
+Polymorphism
+
+Same interface, different implementations. Method overriding demonstrates runtime polymorphism.
+
+for obj in [Dog(), Animal()]:
+    print(obj.speak())
+
+Example: getters/setters using @property
+
+class Person:
+    def __init__(self, age):
+        self._age = age
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, value):
+        if value >= 0:
+            self._age = value
+
+Q2.Method Resolution Order (MRO), super(), and C3 linearization
+Ans:MRO
+
+Determines order Python follows to look up methods/attributes in multiple inheritance.
+
+Accessed by Class.mro() or Class.__mro__.
+
+
+super()
+
+Returns a proxy to delegate method calls to the next class in MRO. Use to call parent class method in cooperative multiple inheritance.
+
+
+Example (diamond problem):
+
+class A:
+    def action(self): print("A")
+
+class B(A):
+    def action(self): 
+        print("B"); super().action()
+
+class C(A):
+    def action(self):
+        print("C"); super().action()
+
+class D(B, C):
+    def action(self):
+        print("D"); super().action()
+
+D().action()
+# Output order depends on MRO
+print(D.mro())
+
+Typical D.mro() for new-style classes uses C3 linearization to produce a deterministic order that preserves local precedence and monotonicity. For class D(B, C), MRO will be [D, B, C, A, object] (if that order satisfies constraints).
+
+C3 linearization (intuitive):
+
+Merge class + MROs of parents in a way that keeps local precedence and preserves order, producing a single linear order.
+
+
+We use super() to ;
+
+Ensures each class in MRO gets a chance to run its method once, enabling cooperative multiple inheritance.
+
+
+Example showing MRO effect:
+
+class A: 
+    def process(self): print("A")
+class B(A):
+    def process(self): print("B"); super().process()
+class C(A):
+    def process(self): print("C"); super().process()
+class D(B, C):
+    def process(self): print("D"); super().process()
+
+D().process()
+# Expected output:
+# D
+# B
+# C
+# A
+
+super() calls follow D's MRO [D, B, C, A, object], so the chain executes in that order.
+
+Module 5 — 10-mark
+
+Q1. Exception handling in depth: try, except, else, finally, raise, custom exceptions
+Ans:Structure
+
+try:
+    # code that may raise
+except SomeException as e:
+    # handle exception
+except (E1, E2):
+    # multiple types
+else:
+    # executes if no exception was raised in try
+finally:
+    # executes always (cleanup)
+
+try: guarded block.
+
+except: catches exceptions; order matters — specific before general.
+
+else: runs when try succeeded — useful to keep exception-free code separate from error handling.
+
+finally: always runs (even on return, break, exception) — use for cleanup (closing resources).
+
+raise: explicitly raise an exception.
+
+
+raise ValueError("bad value")
+
+Custom exceptions
+
+Define by subclassing Exception (or appropriate built-in).
+
+class ValidationError(Exception):
+    pass
+
+def validate(x):
+    if x < 0:
+        raise ValidationError("x must be non-negative")
+
+Example: comprehensive
+
+def safe_div(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError as e:
+        print("Division by zero:", e)
+        return None
+    except TypeError:
+        print("Invalid types")
+        raise    # re-raise
+    else:
+        print("Success")
+        return result
+    finally:
+        print("Cleanup (runs always)")
+
+print(safe_div(10,2))
+
+Matching except clause & multiple except blocks
+
+Python evaluates except blocks in order; the first matching type handles the exception.
+
+Use multiple excepts to handle granularly.
+
+Q2. File handling: modes, pointer movement (seek, tell), reading/writing examples
+Ans:Common modes
+
+'r' — read (default), file must exist.
+
+'w' — write (truncate/create).
+
+'a' — append (write at end; create if missing).
+
+'x' — exclusive create (fail if exists).
+
+'r+' — read and write, pointer at start.
+
+'w+' — write and read (truncates).
+
+'a+' — append and read (pointer at end for writes).
+
+
+Also binary modes: add b (e.g., 'rb', 'wb') and text modes default without b.
+
+Opening and closing (use context manager)
+
+with open("data.txt", "w", encoding="utf-8") as f:
+    f.write("Hello\n")
+# file automatically closed
+
+Read/write examples
+
+# write
+with open("sample.txt", "w") as f:
+    f.write("Line1\nLine2\n")
+
+# read all
+with open("sample.txt", "r") as f:
+    data = f.read()
+
+# read line by line
+with open("sample.txt", "r") as f:
+    for line in f:
+        print(line.strip())
+
+tell() and seek()
+
+tell() returns current file pointer position (number of bytes from start in binary; characters in text depends on encoding but generally byte offset).
+
+seek(offset, whence) moves pointer:
+
+whence=0 (default) → absolute file offset
+
+whence=1 → relative to current position
+
+whence=2 → relative to file end
+
+Example:
+
+with open("sample.txt", "rb") as f:
+    print(f.tell())        # 0
+    chunk = f.read(5)
+    print(chunk)           # b'Line1'
+    print(f.tell())        # 5
+    f.seek(0)              # back to start
+    print(f.read(4))       # b'Line'
+
+Note: In text mode, seek and tell behavior may be influenced by universal newlines and encoding; using binary mode ('rb'/'wb') gives byte-precise positioning.
+
+Appending vs overwriting
+
+'w' truncates file to zero length.
+
+'a' writes always at end (pointer moves to end before each write).
+
+
+Example combining exceptions and file handling
+
+try:
+    with open("numbers.txt", "r") as f:
+        total = 0
+        for line in f:
+            total += int(line.strip())
+except FileNotFoundError:
+    print("File missing")
+except ValueError:
+    print("Invalid number in file")
+else:
+    print("Total:", total)
+finally:
+    print("Done")
